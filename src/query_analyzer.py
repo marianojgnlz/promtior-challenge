@@ -18,7 +18,7 @@ class QueryAnalyzer:
 
     def _setup_chat_model(self, model: str):
         logger.info(f"Setting up chat model: {model}")
-        if model in ["gpt-4", "gpt-3.5-turbo"]:
+        if model in ["gpt-4o", "gpt-4o-mini"]:
             self.chat_model = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
                 model=model

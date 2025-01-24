@@ -35,7 +35,7 @@ class DocumentProcessor:
 
     def _setup_embeddings(self, model: str):
         logger.info(f"Setting up embeddings for model: {model}")
-        if model in ["gpt-4", "gpt-3.5-turbo"]:
+        if model in ["gpt-4o", "gpt-4o-mini"]:
             self.embeddings = OpenAIEmbeddings(
                 api_key=os.getenv("OPENAI_API_KEY"),
             )

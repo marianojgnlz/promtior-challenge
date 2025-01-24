@@ -43,7 +43,7 @@ class DocumentRetriever:
 
     def _setup_llm(self, model: str):
         logger.info(f"Setting up LLM for model: {model}")
-        if model in ["gpt-4", "gpt-3.5-turbo"]:
+        if model in ["gpt-4o", "gpt-4o-mini"]:
             self.llm = ChatOpenAI(
                 api_key=os.getenv("OPENAI_API_KEY"),
                 model=model,

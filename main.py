@@ -54,7 +54,7 @@ class ModelUpdate(BaseModel):
 
 # Initialize with default model based on environment
 if ENVIRONMENT == "production":
-    document_processor = DocumentProcessor(model="gpt-4")
+    document_processor = DocumentProcessor(model="gpt-4o")
 else:
     document_processor = DocumentProcessor(model="llama3.2")
 
@@ -154,7 +154,7 @@ async def chat_endpoint(chat_message: ChatMessage):
         callback_manager = CallbackManager([LangSmithCallback(run_tree)])
         
         # Initialize appropriate chat model based on selection
-        if chat_message.model in ["gpt-4", "gpt-3.5-turbo"]:
+        if chat_message.model in ["gpt-4o", "gpt-4o-mini"]:
             logger.info(f"Using OpenAI model: {chat_message.model}")
             chat_model = ChatOpenAI(
                 model=chat_message.model,

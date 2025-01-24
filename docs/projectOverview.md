@@ -1,6 +1,6 @@
 # Principales desafíos encontrados
 
 El primeer desafío fue comprender la arquitectura RAG y como implementarla en un proyecto, y adaptar mis conocimientos al framework de LangChain. 
-Una vez superado este desafío, el siguiente se vio en elegir la mejor IA para el proyecto, como se puede ver en el live demo, se puede elegir entre GPT-4, GPT-3.5 Turbo, Llama 3.2 y DeepSeek R1, sin embargo, estas últimas dos solo están disponibles en el entorno de desarrollo, ya que no consegui forma de correrlas en producción.
+Una vez superado este desafío, el siguiente se vio en elegir la mejor IA para el proyecto, como se puede ver en el live demo, se puede elegir entre GPT-4o, GPT-4o-mini, Llama 3.2 y DeepSeek R1, sin embargo, estas últimas dos solo están disponibles en el entorno de desarrollo, ya que no consegui forma de correrlas en producción.
 
 El siguiente desafío me lo encontre a la hora de entender como funcionaban los splits, y su integración con los retrievers, me encontré con que la IA no era capaz de contestar a las preguntas a pesar de tener la informacion disponible, por ello implemente un sistema de logs y guarde los splits en un json para analizarlos mejor y encontrar la causa del problema. Al final lo solucioné modificando el tamaño de los splits, y el overlap de los mismos, ademas fue aqui donde introduje la IA DeepSeek R1, que resultó ser la mejor IA para el proyecto.
