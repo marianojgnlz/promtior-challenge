@@ -3,26 +3,27 @@ from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
 from langchain_core.runnables import RunnableConfig
 from langchain_ollama import ChatOllama
+from langchain_openai import ChatOpenAI
 from typing import List
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 from langchain.prompts import PromptTemplate
+from .logger import Logger
+
+logger = Logger.get_logger('retriever')
 
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 ENV_PATH = ROOT_DIR / '.env'
 load_dotenv(dotenv_path=ENV_PATH)
 
 class DocumentRetriever:
-    def __init__(self, embeddings, model: str = "deepseek-r1:1.5b", vectorstore=None):
+    def __init__(self, embeddings, model: str = "deepseek-r1:7b", vectorstore=None):
+        logger.info(f"Initializing DocumentRetriever with model: {model}")
         self.embeddings = embeddings
         self.vectorstore = vectorstore
         self.model = model
-        self.llm = ChatOllama(
-            model=model,
-            base_url=os.getenv("OLLAMA_BASE_URL"),
-            callbacks=[]
-        )
+        self._setup_llm(model)
         
         self.query_prompt = PromptTemplate(
             input_variables=["question"],
@@ -40,33 +41,50 @@ class DocumentRetriever:
             DO NOT include any prefixes or explanations. Return ONLY the search queries, one per line."""
         )
 
+    def _setup_llm(self, model: str):
+        logger.info(f"Setting up LLM for model: {model}")
+        if model in ["gpt-4", "gpt-3.5-turbo"]:
+            self.llm = ChatOpenAI(
+                api_key=os.getenv("OPENAI_API_KEY"),
+                model=model,
+                callbacks=[]
+            )
+            logger.info(f"OpenAI LLM {model} configured")
+        else:
+            self.llm = ChatOllama(
+                model=model,
+                base_url=os.getenv("OLLAMA_BASE_URL"),
+                callbacks=[]
+            )
+            logger.info(f"Ollama LLM configured for {model}")
+
     def update_model(self, model: str):
-        """Update the model used by the retriever"""
+        logger.info(f"Updating model to: {model}")
         self.model = model
-        self.llm = ChatOllama(
-            model=model,
-            base_url=os.getenv("OLLAMA_BASE_URL"),
-            callbacks=[]
-        )
+        self._setup_llm(model)
 
     def create_vectorstore(self, documents: List[Document]) -> None:
-        """Create or update the vector store with documents."""
         if not documents:
+            logger.warning("No documents provided for vectorstore creation")
             return
 
+        logger.info(f"Creating vectorstore with {len(documents)} documents")
         if not self.vectorstore:
             self.vectorstore = Chroma.from_documents(
                 documents=documents,
                 embedding=self.embeddings
             )
+            logger.info("New vectorstore created")
         else:
             self.vectorstore.add_documents(documents)
+            logger.info("Documents added to existing vectorstore")
 
     async def get_relevant_documents(self, query: str, k: int = 4) -> List[Document]:
-        """Get relevant documents using MultiQueryRetriever."""
         if not self.vectorstore:
+            logger.warning("No vectorstore available for document retrieval")
             return []
 
+        logger.info(f"Retrieving documents for query: {query} with k={k}")
         retriever = self.vectorstore.as_retriever(
             search_type="similarity",
             search_kwargs={
@@ -75,6 +93,7 @@ class DocumentRetriever:
         )
         
         docs = await retriever.ainvoke(query)
+        logger.info(f"Retrieved {len(docs)} initial documents")
         
         seen = set()
         unique_docs = []
@@ -83,4 +102,6 @@ class DocumentRetriever:
                 seen.add(doc.page_content)
                 unique_docs.append(doc)
 
-        return unique_docs[:k]
+        final_docs = unique_docs[:k]
+        logger.info(f"Returning {len(final_docs)} unique documents")
+        return final_docs

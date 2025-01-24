@@ -17,6 +17,104 @@
                 }
             }
         }
+
+        // Fetch environment status when page loads
+        window.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('/environment');
+                const data = await response.json();
+                
+                if (data.environment === 'production') {
+                    // Show warning banner
+                    const warningBanner = document.createElement('div');
+                    warningBanner.className = 'bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 mb-4';
+                    warningBanner.innerHTML = `
+                        <div class="flex items-center">
+                            <svg class="h-6 w-6 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                            <p><strong>Production Environment:</strong> Local models are disabled for security reasons.</p>
+                        </div>
+                    `;
+                    document.querySelector('.container').insertBefore(warningBanner, document.querySelector('.bg-white'));
+
+                    // Disable local models in selector
+                    const modelSelector = document.getElementById('model-selector');
+                    const localModelsOptgroup = modelSelector.querySelector('optgroup[label="Local Models"]');
+                    if (localModelsOptgroup) {
+                        localModelsOptgroup.disabled = true;
+                        Array.from(localModelsOptgroup.options).forEach(option => {
+                            option.disabled = true;
+                        });
+                    }
+                    
+                    // Select GPT-3.5 as default
+                    modelSelector.value = 'gpt-3.5-turbo';
+
+                    // Disable message input if no valid API key
+                    const userInput = document.getElementById('user-input');
+                    const sendButton = document.getElementById('send-button');
+                    const pdfUpload = document.getElementById('pdf-upload');
+                    const pdfButton = document.querySelector('button[onclick="document.getElementById(\'pdf-upload\').click()"]');
+                    
+                    const apiKeyResponse = await fetch('/check-api-key');
+                    const apiKeyData = await apiKeyResponse.json();
+                    
+                    if (!apiKeyData.valid) {
+                        // Disable all input methods
+                        userInput.contentEditable = false;
+                        userInput.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-100');
+                        sendButton.disabled = true;
+                        sendButton.classList.add('opacity-50', 'cursor-not-allowed');
+                        pdfUpload.disabled = true;
+                        pdfButton.disabled = true;
+                        pdfButton.classList.add('opacity-50', 'cursor-not-allowed');
+                        
+                        // Add warning messages
+                        const apiKeyWarning = document.createElement('div');
+                        apiKeyWarning.className = 'bg-red-50 border-l-4 border-red-500 p-4 mt-4';
+                        apiKeyWarning.innerHTML = `
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Chat Disabled</h3>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        <p>OpenAI API key not configured. Please contact administrator to enable chat functionality.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        document.querySelector('.border-t').insertBefore(apiKeyWarning, document.querySelector('.flex.gap-4'));
+
+                        // Update placeholder text
+                        userInput.setAttribute('placeholder', 'Chat disabled - API key required');
+                        
+                        // Prevent any input attempts
+                        userInput.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                        
+                        // Disable file drop
+                        document.addEventListener('drop', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                        
+                        document.addEventListener('dragover', (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error('Error checking environment:', error);
+            }
+        });
     </script>
 </head>
 <body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
@@ -33,8 +131,14 @@
                             id="model-selector" 
                             class="appearance-none bg-white/10 text-white border border-white/20 rounded-lg pl-4 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 cursor-pointer font-medium hover:bg-white/20 transition-colors"
                         >
-                            <option value="llama3.2:1b">Llama 3.2</option>
-                            <option value="deepseek-r1:1.5b" selected>DeepSeek R1</option>
+                            <optgroup label="API Models">
+                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                            </optgroup>
+                            <optgroup label="Local Models">
+                                <option value="llama3.2">Llama 3.2</option>
+                                <option value="deepseek-r1:7b" selected>DeepSeek R1</option>
+                            </optgroup>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
                             <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">

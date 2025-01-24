@@ -9,38 +9,8 @@ services:
       - LANGCHAIN_ENDPOINT=https://api.smith.langchain.com
       - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
       - LANGCHAIN_PROJECT=promtior-rag
+      - ENVIRONMENT=${ENVIRONMENT}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
     volumes:
-      - ./uploads:/app/uploads
-      - ./debug_output:/app/debug_output
-    depends_on:
-      - ollama
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
-
-  ollama:
-    image: ollama/ollama:latest
-    ports:
-      - "11434:11434"
-    volumes:
-      - ollama_data:/root/.ollama
-      - type: bind
-        source: ./pull_models.sh
-        target: /pull_models.sh
-    environment:
-      - OLLAMA_HOST=0.0.0.0
-      - OLLAMA_ORIGINS=http://localhost:8000
-    deploy:
-      resources:
-        limits:
-          cpus: '4'
-          memory: 8G
-        reservations:
-          cpus: '2'
-          memory: '4G'
-    entrypoint: ["/bin/sh", "-c", "chmod +x /pull_models.sh && /usr/bin/ollama serve"]
-
-volumes:
-  ollama_data: 
+      - ./logs:/app/logs
+      - ./splits:/app/splits
