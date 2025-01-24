@@ -215,7 +215,11 @@ async def chat_endpoint(chat_message: ChatMessage):
                     messages.append(SystemMessage(content=rag_prompt))
                 else:
                     logger.warning("No vectorstore available for query")
-                    messages.append(SystemMessage(content="Please include a URL with your question using @url format."))
+                    rag_prompt = document_processor.get_rag_prompt(
+                        question=chat_message.message,
+                        context="No context available. Remember to only answer questions about Promtior company."
+                    )
+                    messages.append(SystemMessage(content=rag_prompt))
 
             messages.append(HumanMessage(content=chat_message.message))
 
