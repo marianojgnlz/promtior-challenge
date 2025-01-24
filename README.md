@@ -131,7 +131,7 @@ Promtior-chatbot/
 
 ### Desarrollo
 - Permite todos los modelos
-- Dependencia con Ollama([text](https://ollama.com))
+- Dependencia con ([Ollama](https://ollama.com))
 - Logging detallado
 
 ### Producción
