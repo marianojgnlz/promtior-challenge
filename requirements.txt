@@ -5,6 +5,7 @@ langchain
 langchain_community
 langchain_core
 langchain_ollama
+langchain_openai
 chromadb
 aiohttp>=3.8.0
 beautifulsoup4>=4.12.0
