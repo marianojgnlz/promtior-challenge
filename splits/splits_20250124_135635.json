@@ -1,0 +1,130 @@
+[
+  {
+    "content": "WELCOME\nTO THE BIONIC FUTURE\n2024 TECHNICAL TEST -PROMTIOR",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 0
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Welcome !\nDocument : Technical Test\nPrepared by : Emiliano Chinelli and Ignacio Acuña\nValidity : 7 days from the date of sending\nHi,\nBelow you will find more information about Promtior and our technical test for the position you are applying \nfor.\nThe technical test may seem demanding or not, depending on your current skills. In any case, once you dive \ninto the documentation and technologies we recommend, you will see that it is not so complex, but it will",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 1
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "certainly be a challenge worth attempting!\nOur greatest commitment as founders is to provide you with the best team of colleagues you could dream of, \nand this commitment starts by proposing a technical challenge in line with the future world and technologies.\nBest of luck, see you soon!\nEmi and Nacho",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 1
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "In November 2022 , ChatGPT was released, causing a significant impact \nand challenging previously unquestionable principles: \nCreativity is an exclusively human trait .\nThe speed of these technological advancements has put \nunprecedented pressure on leaders to incorporate AI into their \nbusinesses.\nIn May 2023 , Promtior was founded facing this context, where the key \nquestion is: how to approach a scenario of transversal disruption and \nmaximize the opportunities it presents?",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 2
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "maximize the opportunities it presents?\nThrough its technological and organizational consulting, Promtior offers \na way to generate new business models, answering this question and \nbringing companies at the forefront of their sector.\nAbout Promtior",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 2
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "that started their transition towards a Bionic\nfuture, with the help of Promtior Organizations\nCAF5M Travel \nGroupGuyer &\nRegulesHandy Paigo\nVangweForestal \nAtlántico SurAdvice \nConsulting\nInfocorp\nL'Oreal \nLatam\nST Consultores\n SIEE\nRPA \nMaker\nCIEMSA\nS1\n Incapital",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 3
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Introduction\nAt Promtior, we specialize in implementing cutting -edge generative solutions, with a focus on the \nimplementation of the RAG (Retrieval Augmented Generation) architecture to meet the diverse needs of our \nclients.\nObjective of the Test\nDevelop and deploy a chatbot assistant that uses the RAG architecture to answer questions about the \ncontent of the Promtior website, based on the LangChain library .",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 4
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Extra information about Promtior can be found in this presentation. Adding it as a source gives extra points.Technical test instructions",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 4
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Functionality\nThe chatbot should be able to answer the following questions:\n-What services does Promtior offer?\n-When was the company founded?\nTechnologies tobe used\n●Implement the solution using LangChain with Langserve :\n-Quickstart | \n Langchain https://python.langchain.com/docs/get_started/quickstart\n-Use the OpenAI API if you have a subscription, otherwise, you can use Ollama and LlaMA 2 as explained in the \nLangChain documentation.\nDeployment",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 5
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "LangChain documentation.\nDeployment\nDeploy the solution on a cloud of your choice (AWS, Azure).\n•\n Tip: although using one of the mentioned clouds is valued, you can use Railway to facilitate the deployment.\n•Doc Langserve deployment: https://python.langchain.com/docs/langserve#deploymentTechnical requirements",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 5
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Objective of the Documentation\nProvide a comprehensive overview of the approach, implementation, and technologies used to develop the \nchatbot assistant, enabling a detailed evaluation of the proposed solution.\nRequired Content\n-Project Overview : A brief summary in your own words about how you approached and solved the \nchallenge. This includes the implementation logic, the main challenges encountered, and how you \novercame them.",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 6
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "overcame them.\n-Component Diagram : A diagram showing the components involved in the solution and their interactions \nfrom the time the question is received by the chatbot until the response is given.\nTip: You can use the following tools: Draw.io, Lucidchart .Required documentation",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 6
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Source Code and Documentation\nThe source code and documentation must be uploaded to a public GitHub repository.\nThe required documentation should be uploaded in the same repository within the /doc folder.\nOnce the source code is uploaded, the following form must be completed:\nhttps://forms.microsoft.com/r/2Q6iZpYvPT\nConsiderations\nIf you have any questions about the test instructions or the delivery format, you can ask us at",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 7
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "challenges@promtior.ai and we will respond as soon as possible.Delivery format and considerations",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 7
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "Final words\nThis test will help us better understand your current knowledge and seniority.\nIt is designed so that someone with programming knowledge and good comprehension skills can solve it \nwithout problems by relying on the shared documentation.\nWe wish you great success in this process, and we hope to continue the transition to a Bionic future \ntogether!!!",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 8
+    },
+    "source": "uploads/AI Engineer.pdf"
+  },
+  {
+    "content": "https://promtior.ai/Contact\nIgnacio.acuna@promtior.ai\nTECHNICAL TEST",
+    "metadata": {
+      "source": "uploads/AI Engineer.pdf",
+      "page": 9
+    },
+    "source": "uploads/AI Engineer.pdf"
+  }
+]

@@ -6,6 +6,9 @@ import aiohttp
 import asyncio
 from bs4 import BeautifulSoup
 from .html_cleaner import HTMLCleaner
+import logging
+
+logger = logging.getLogger(__name__)
 
 class DocumentLoader:
     def __init__(self):
@@ -236,6 +239,35 @@ class DocumentLoader:
                             }
                         ))
         
+        return documents
+    
+    async def load_file_documents(self, files: List[str]) -> List[Document]:
+        if not files:
+            return []
+        
+        documents = []
+        for file in files:
+            try:
+                if file.lower().endswith('.pdf'):
+                    from langchain_community.document_loaders import PyPDFLoader
+                    loader = PyPDFLoader(file)
+                    # Load PDF pages
+                    pdf_docs = loader.load()
+                    logger.info(f"Loaded {len(pdf_docs)} pages from PDF: {file}")
+                    
+                    # Process through text splitter
+                    pdf_splits = self.text_splitter.split_documents(pdf_docs)
+                    logger.info(f"Created {len(pdf_splits)} splits from PDF: {file}")
+                    
+                    documents.extend(pdf_splits)
+                else:
+                    with open(file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        documents.append(Document(page_content=content, metadata={"source": file}))
+            except Exception as e:
+                logger.error(f"Error loading file {file}: {str(e)}")
+                raise Exception(f"Error loading file {file}: {str(e)}")
+                
         return documents
 
     def _process_document_language(self, content: str, metadata: Dict) -> Tuple[str, Dict]:

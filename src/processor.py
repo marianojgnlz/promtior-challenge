@@ -61,8 +61,15 @@ class DocumentProcessor:
         
         web_docs = await self.document_loader.load_web_documents(processed_sources['urls'])
         logger.info(f"Loaded {len(web_docs)} web documents")
+
+        file_docs = await self.document_loader.load_file_documents(processed_sources['files'])
+        logger.info(f"Loaded {len(file_docs)} file documents")
         
-        splits = await self.document_loader.process_documents(web_docs)
+        # Combine web and file documents before splitting
+        all_docs = web_docs + file_docs
+        logger.info(f"Total documents to process: {len(all_docs)}")
+        
+        splits = await self.document_loader.process_documents(all_docs)
         logger.info(f"Created {len(splits)} document splits")
         
         if splits:
