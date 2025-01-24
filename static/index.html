@@ -449,7 +449,7 @@
                 pdfStatus.textContent = 'Uploading...';
 
                 try {
-                    const response = await fetch('http://localhost:8000/upload-pdf', {
+                    const response = await fetch('/upload-pdf', {
                         method: 'POST',
                         body: formData,
                     });
