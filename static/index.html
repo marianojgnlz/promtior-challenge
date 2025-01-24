@@ -132,12 +132,12 @@
                             class="appearance-none bg-white/10 text-white border border-white/20 rounded-lg pl-4 pr-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-white/30 cursor-pointer font-medium hover:bg-white/20 transition-colors"
                         >
                             <optgroup label="API Models">
-                                <option value="gpt-4">GPT-4</option>
+                                <option value="gpt-4" selected>GPT-4</option>
                                 <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
                             </optgroup>
                             <optgroup label="Local Models">
                                 <option value="llama3.2">Llama 3.2</option>
-                                <option value="deepseek-r1:7b" selected>DeepSeek R1</option>
+                                <option value="deepseek-r1:7b">DeepSeek R1</option>
                             </optgroup>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
@@ -153,17 +153,6 @@
             </div>
 
             <div class="border-t p-4 bg-white">
-                <div id="retry-container" class="mb-3 hidden">
-                    <button 
-                        id="retry-button"
-                        class="inline-flex items-center gap-2 text-sm bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-full transition-colors"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        <span>Retry last message</span>
-                    </button>
-                </div>
                 <div class="flex gap-4 items-center">
                     <div class="flex-shrink-0">
                         <input 
