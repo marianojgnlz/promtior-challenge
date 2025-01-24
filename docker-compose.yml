@@ -21,9 +21,8 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./certs/fullchain.pem:/etc/nginx/ssl/fullchain.pem
-      - ./certs/privkey.pem:/etc/nginx/ssl/privkey.pem
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./certs:/etc/nginx/ssl:ro
     depends_on:
       - app
     restart: always
