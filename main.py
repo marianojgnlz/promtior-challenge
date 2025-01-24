@@ -47,9 +47,17 @@ logger.info(f"Running in {ENVIRONMENT} environment")
 
 class ChatMessage(BaseModel):
     message: str
-    model: str = "deepseek-r1:7b"  
+    model: str 
 
-document_processor = DocumentProcessor()
+class ModelUpdate(BaseModel):
+    model: str
+
+# Initialize with default model based on environment
+if ENVIRONMENT == "production":
+    document_processor = DocumentProcessor(model="gpt-4")
+else:
+    document_processor = DocumentProcessor(model="llama3.2")
+
 processed_documents = []
 
 @app.get("/environment")
@@ -237,4 +245,22 @@ async def chat_endpoint(chat_message: ChatMessage):
 @app.get("/")
 async def read_root():
     logger.info("Serving index.html")
-    return FileResponse('static/index.html') 
+    return FileResponse('static/index.html')
+
+@app.post("/update-model")
+async def update_model(model_update: ModelUpdate):
+    """Update the document processor model"""
+    try:
+        if ENVIRONMENT == "production" and model_update.model in ["llama3.2", "deepseek-r1:7b"]:
+            logger.warning(f"Attempted to use local model {model_update.model} in production")
+            raise HTTPException(
+                status_code=400,
+                detail="Local models are not available in production environment"
+            )
+            
+        logger.info(f"Updating document processor model to: {model_update.model}")
+        document_processor.update_model(model_update.model)
+        return {"status": "success", "model": model_update.model}
+    except Exception as e:
+        logger.error(f"Error updating model: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e)) 
