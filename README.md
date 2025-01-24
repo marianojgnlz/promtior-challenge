@@ -131,11 +131,10 @@ Promtior-chatbot/
 
 ### Desarrollo
 - Permite todos los modelos
-- No requiere SSL
+- Dependencia con Ollama([text](https://ollama.com))
 - Logging detallado
 
 ### Producción
 - Solo modelos API (GPT)
-- Requiere SSL
 - Validación estricta de API keys
 
