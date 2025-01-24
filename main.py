@@ -23,7 +23,7 @@ from src.logger import Logger
 logger = Logger.get_logger('main')
 load_dotenv()
 
-logger.info("Starting Promptior Chatbot application")
+logger.info("Starting promtior Chatbot application")
 langsmith_client = Client()
 
 app = FastAPI()

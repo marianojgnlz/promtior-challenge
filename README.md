@@ -2,6 +2,21 @@
 
 Chatbot asistente que utiliza la arquitectura RAG (Retrieval Augmented Generation) para responder preguntas sobre el contenido del sitio web de Promtior, basado en la biblioteca LangChain.
 
+# Tabla de contenidos
+
+- [Live Demo](#live-demo)
+- [Características](#características)
+- [Requisitos](#requisitos)
+- [Principales desafíos encontrados](#principales-desafíos-encontrados)
+- [Posibles mejoras](#posibles-mejoras)
+- [Configuración](#configuración)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Estructura del Proyecto](#estructura-del-proyecto)
+- [Seguridad](#seguridad)
+- [Mantenimiento](#mantenimiento)
+- [Entornos](#entornos)
+
 ## Live Demo
 
 https://promtior.tatool.com.ar
