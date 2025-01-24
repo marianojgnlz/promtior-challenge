@@ -202,7 +202,6 @@
             const pdfUpload = document.getElementById('pdf-upload');
             const pdfStatus = document.getElementById('pdf-status');
             const retryButton = document.getElementById('retry-button');
-            const retryContainer = document.getElementById('retry-container');
             let lastMessage = null;  // Store the last message
 
             function createMessageElement(isUser) {
@@ -282,7 +281,6 @@
                 if (!message) return;
 
                 lastMessage = message;
-                retryContainer.classList.add('hidden');
 
                 if (!messageToSend) {
                     addMessage(message, true);
@@ -345,7 +343,6 @@
                     errorDiv.className = 'message error-message';
                     errorDiv.textContent = `Error: ${error.message}`;
                     chatMessages.appendChild(errorDiv);
-                    retryContainer.classList.remove('hidden');
                 } finally {
                     sendButton.disabled = false;
                     sendButton.classList.remove('opacity-50');
