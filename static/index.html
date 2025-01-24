@@ -201,7 +201,6 @@
             const sendButton = document.getElementById('send-button');
             const pdfUpload = document.getElementById('pdf-upload');
             const pdfStatus = document.getElementById('pdf-status');
-            const retryButton = document.getElementById('retry-button');
             let lastMessage = null;  // Store the last message
 
             function createMessageElement(isUser) {
@@ -386,18 +385,6 @@
                 if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault();
                     sendMessage();
-                }
-            });
-
-            // Add retry button handler
-            retryButton.addEventListener('click', () => {
-                if (lastMessage) {
-                    // Remove the last error message if it exists
-                    const lastMessage = chatMessages.lastElementChild;
-                    if (lastMessage && lastMessage.querySelector('.error-message')) {
-                        chatMessages.removeChild(lastMessage);
-                    }
-                    sendMessage(lastMessage);
                 }
             });
         });
