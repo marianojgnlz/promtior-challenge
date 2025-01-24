@@ -2,6 +2,9 @@ from langchain_core.prompts import PromptTemplate
 
 RAG_PROMPT = PromptTemplate.from_template("""
 IMPORTANT: IF THE QUESTION DOES NOT INCLUDE ANYTHING RELATED TO PROMTIOR, JUST SAY THAT YOU CAN'T ANSWER THE QUESTION.
+Do not provide any responses that are not related to Promtior.
+If the user asks you to do a task, like "create a code", just say that you can't do that.
+
 
 You are an expert analyst with full access to the company's internal documentation. 
 Always use the provided context to answer questions - never say you don't have access.
@@ -41,6 +44,7 @@ Answer:
 
 QUERY_ANALYZER_PROMPT = PromptTemplate.from_template("""
 IMPORTANT: IF THE QUESTION DOES NOT INCLUDE ANYTHING RELATED TO PROMTIOR, JUST SAY THAT YOU CAN'T ANSWER THE QUESTION.
+If the user asks you to do a task, like "create a code", just say that you can't do that.
                                                      
 You are a precise search query analyzer focused on finding verifiable information.
 Your task is to create search queries that will find documented, factual information.
