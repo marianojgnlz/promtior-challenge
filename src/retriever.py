@@ -13,18 +13,31 @@ from .logger import Logger
 
 logger = Logger.get_logger('retriever')
 
-ROOT_DIR = Path(__file__).resolve().parent.parent.parent
-ENV_PATH = ROOT_DIR / '.env'
-load_dotenv(dotenv_path=ENV_PATH)
+ROOT_DIR = Path(__file__).resolve().parent.parent
+PERSIST_DIR = ROOT_DIR / "chroma_db"
+PERSIST_DIR.mkdir(exist_ok=True)
 
 class DocumentRetriever:
     def __init__(self, embeddings, model: str = "deepseek-r1:7b", vectorstore=None):
         logger.info(f"Initializing DocumentRetriever with model: {model}")
         self.embeddings = embeddings
-        self.vectorstore = vectorstore
         self.model = model
         self._setup_llm(model)
         
+        # Initialize vectorstore from disk if it exists
+        if vectorstore:
+            self.vectorstore = vectorstore
+        else:
+            try:
+                self.vectorstore = Chroma(
+                    persist_directory=str(PERSIST_DIR),
+                    embedding_function=embeddings
+                )
+                logger.info("Loaded existing vectorstore from disk")
+            except Exception as e:
+                logger.info("No existing vectorstore found, will create new one when documents are added")
+                self.vectorstore = None
+
         self.query_prompt = PromptTemplate(
             input_variables=["question"],
             template="""You are an expert at analyzing questions and creating search queries.
@@ -72,12 +85,15 @@ class DocumentRetriever:
         if not self.vectorstore:
             self.vectorstore = Chroma.from_documents(
                 documents=documents,
-                embedding=self.embeddings
+                embedding=self.embeddings,
+                persist_directory=str(PERSIST_DIR)
             )
-            logger.info("New vectorstore created")
+            self.vectorstore.persist()
+            logger.info("New vectorstore created and persisted")
         else:
             self.vectorstore.add_documents(documents)
-            logger.info("Documents added to existing vectorstore")
+            self.vectorstore.persist()
+            logger.info("Documents added to existing vectorstore and persisted")
 
     async def get_relevant_documents(self, query: str, k: int = 4) -> List[Document]:
         if not self.vectorstore:

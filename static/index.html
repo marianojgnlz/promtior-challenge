@@ -256,28 +256,28 @@
             const buttons = [
                 {
                     text: 'What services does Promtior offer?',
-                    message: 'What services does Promtior offer? @https://www.promtior.ai'
+                    message: 'What services does Promtior offer?'
                 },
                 {
                     text: 'When was the company founded?',
-                    message: 'When was the company founded? @https://www.promtior.ai'
+                    message: 'When was the company founded?'
                 },
                 {
                     text: 'What technologies does Promtior use?',
-                    message: 'What technologies does Promtior use? @https://www.promtior.ai'
+                    message: 'What technologies does Promtior use?'
                 },
                 {
                     text: 'What industries does Promtior work with?',
-                    message: 'What industries does Promtior work with? @https://www.promtior.ai'
+                    message: 'What industries does Promtior work with?'
                 }
             ];
 
             buttons.forEach(button => {
                 const linkElement = document.createElement('a');
                 linkElement.className = 'text-primary hover:text-secondary cursor-pointer transition-colors text-sm underline';
-                linkElement.textContent = button.text;
+                linkElement.textContent = button.text;  // Only show the question text
                 linkElement.onclick = () => {
-                    sendMessage(button.message, true);
+                    sendMessage(button.message, true);  // Send full message with URL
                     suggestionButtons.remove();
                 };
                 suggestionButtons.appendChild(linkElement);
